@@ -28,7 +28,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/upstream-vhost: ${UPSTREAM}
     nginx.ingress.kubernetes.io/backend-protocol: https
-    nginx.ingress.kubernetes.io/rewrite-target: /v2/docker.io/anchore/$1/manifests/$3
+    nginx.ingress.kubernetes.io/rewrite-target: /v2/${BASE}/$1/manifests/$3
     nginx.ingress.kubernetes.io/enable-rewrite-log: "true"
     nginx.ingress.kubernetes.io/cors-allow-methods: "GET, HEAD"
 #    nginx.ingress.kubernetes.io/rewrite-target: /v2/net_mon-images-docker-local/docker-images/$2
@@ -52,7 +52,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/upstream-vhost: ${UPSTREAM}
     nginx.ingress.kubernetes.io/backend-protocol: https
-    nginx.ingress.kubernetes.io/rewrite-target: /v2/docker.io/anchore/$1/blobs/$3
+    nginx.ingress.kubernetes.io/rewrite-target: /v2/${BASE}/$1/blobs/$3
     nginx.ingress.kubernetes.io/enable-rewrite-log: "true"
     nginx.ingress.kubernetes.io/cors-allow-methods: "GET"
 spec:
@@ -67,3 +67,4 @@ spec:
               number: 443
         pathType: Prefix
         path: /v2/(.*)/blobs(/|$)(.*)
+---
