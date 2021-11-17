@@ -8,7 +8,7 @@ metadata:
     nginx.ingress.kubernetes.io/enable-rewrite-log: "true"
     nginx.ingress.kubernetes.io/cors-allow-methods: "GET"
     nginx.ingress.kubernetes.io/server-snippet: |
-        more_set_headers "WWW-Authenticate: Bearer realm=\"https://${FQDN}/artifactory/api/docker/null/v2/token\",service=\"${FQDN}\"";
+        more_set_headers "WWW-Authenticate: Bearer realm=\"http://${FQDN}/artifactory/api/docker/null/v2/token\",service=\"${FQDN}\"";
 
 spec:
   rules:
