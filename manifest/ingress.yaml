@@ -7,7 +7,9 @@ metadata:
     nginx.ingress.kubernetes.io/backend-protocol: https
     nginx.ingress.kubernetes.io/enable-rewrite-log: "true"
     nginx.ingress.kubernetes.io/cors-allow-methods: "GET"
-#    nginx.ingress.kubernetes.io/rewrite-target: /v2/net_mon-images-docker-local/docker-images/$2
+    nginx.ingress.kubernetes.io/server-snippet: |
+        more_set_headers "WWW-Authenticate: Bearer realm=\"http://${FQDN}/artifactory/api/docker/null/v2/token\",service=\"${FQDN}\"";
+
 spec:
   rules:
   - host: ${FQDN}
@@ -24,6 +26,28 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
+  name: ingress-external-auth
+  annotations:
+    nginx.ingress.kubernetes.io/upstream-vhost: ${UPSTREAM}
+    nginx.ingress.kubernetes.io/backend-protocol: https
+    nginx.ingress.kubernetes.io/enable-rewrite-log: "true"
+
+spec:
+  rules:
+  - host: ${FQDN}
+    http:
+      paths:
+      - backend:
+          service:
+            name: external
+            port:
+              number: 443
+        pathType: Exact
+        path: /artifactory/api/docker/null/v2/token
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
   name: ingress-external-head
   annotations:
     nginx.ingress.kubernetes.io/upstream-vhost: ${UPSTREAM}
@@ -31,7 +55,6 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /v2/${BASE}/$1/manifests/$3
     nginx.ingress.kubernetes.io/enable-rewrite-log: "true"
     nginx.ingress.kubernetes.io/cors-allow-methods: "GET, HEAD"
-#    nginx.ingress.kubernetes.io/rewrite-target: /v2/net_mon-images-docker-local/docker-images/$2
 spec:
   rules:
   - host: ${FQDN}
