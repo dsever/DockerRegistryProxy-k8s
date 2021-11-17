@@ -4,7 +4,7 @@ metadata:
   name: ingress-external
   annotations:
     nginx.ingress.kubernetes.io/upstream-vhost: ${UPSTREAM}
-    nginx.ingress.kubernetes.io/backend-protocol: https
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
     nginx.ingress.kubernetes.io/enable-rewrite-log: "true"
     nginx.ingress.kubernetes.io/cors-allow-methods: "GET"
     nginx.ingress.kubernetes.io/server-snippet: |
@@ -29,7 +29,7 @@ metadata:
   name: ingress-external-auth
   annotations:
     nginx.ingress.kubernetes.io/upstream-vhost: ${UPSTREAM}
-    nginx.ingress.kubernetes.io/backend-protocol: https
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
     nginx.ingress.kubernetes.io/enable-rewrite-log: "true"
 
 spec:
@@ -51,7 +51,7 @@ metadata:
   name: ingress-external-head
   annotations:
     nginx.ingress.kubernetes.io/upstream-vhost: ${UPSTREAM}
-    nginx.ingress.kubernetes.io/backend-protocol: https
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
     nginx.ingress.kubernetes.io/rewrite-target: /v2/${BASE}/$1/manifests/$3
     nginx.ingress.kubernetes.io/enable-rewrite-log: "true"
     nginx.ingress.kubernetes.io/cors-allow-methods: "GET, HEAD"
@@ -74,7 +74,7 @@ metadata:
   name: ingress-external-get-blob
   annotations:
     nginx.ingress.kubernetes.io/upstream-vhost: ${UPSTREAM}
-    nginx.ingress.kubernetes.io/backend-protocol: https
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
     nginx.ingress.kubernetes.io/rewrite-target: /v2/${BASE}/$1/blobs/$3
     nginx.ingress.kubernetes.io/enable-rewrite-log: "true"
     nginx.ingress.kubernetes.io/cors-allow-methods: "GET"
