@@ -2,6 +2,8 @@
 
 Simple example how particular docker registries (paths) can be exposed/filtered using k8s nginx ingress.
 
+Keep in mind this example only works for `docker pull`
+
 Example for Anchore
 
 How to:
